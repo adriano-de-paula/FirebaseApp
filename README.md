@@ -1,16 +1,55 @@
-# myapp
+# FirebaseApp
 
-A new Flutter project.
+Projeto desenvolvido na disciplina **Desenvolvimento de Aplicativos 2**, com foco na integração entre **Flutter** e **Firebase** para construção de aplicações móveis com serviços em nuvem.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🎯 Objetivo
 
-A few resources to get you started if this is your first Flutter project:
+Aplicar conceitos de desenvolvimento avançado em Flutter, integrando serviços de back-end para construção de aplicações:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Escaláveis
+- Responsivas
+- Baseadas em nuvem
+- Com comunicação assíncrona eficiente
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🛠 Tecnologias Utilizadas
+
+- Flutter
+- Dart
+- Google Firebase
+- Git e GitHub
+
+---
+
+## 🔥 Serviços Firebase Utilizados
+
+O projeto será estruturado para utilizar:
+
+- 🔐 Firebase Authentication  
+- 🗄 Cloud Firestore  
+- ☁ Firebase Storage  
+- 📩 Firebase Cloud Messaging  
+- 📊 Firebase Analytics  
+- 🛠 Crashlytics  
+
+---
+
+## 🌿 Organização do Repositório
+
+| Branch     | Descrição |
+|------------|-----------|
+| master     | Versão principal consolidada |
+| semana1    | Pequena alteração no código |
+
+---
+
+## 📚 Contexto Acadêmico
+
+Disciplina: Desenvolvimento de Aplicativos 2  
+Curso: Tecnologia em Sistemas para Internet 
+Aluno: Adriano de Paula  
+
+---
