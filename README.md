@@ -1,16 +1,51 @@
-# myapp
+# FirebaseApp – Semana 1
 
-A new Flutter project.
+Atividade inicial da disciplina **Desenvolvimento de Aplicativos 2**.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🎯 Objetivo da Semana
 
-A few resources to get you started if this is your first Flutter project:
+Realizar a preparação inicial do projeto, organizando o ambiente para as próximas etapas da disciplina.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🔧 Alteração Realizada
+
+Foi criada a branch:
+
+semana1
+
+E realizada a seguinte modificação no arquivo `pubspec.yaml`:
+
+```yaml
+name: firebaseapp
+```
+
+Essa alteração padroniza o nome interno do projeto Flutter.
+
+---
+
+## 🌿 Controle de Versão
+
+Comandos utilizados:
+```
+git branch semana1
+git checkout semana1
+git add .
+git commit -m "Semana 1"
+git push origin semana1
+```
+---
+
+## 🧠 Observação
+
+A Semana 1 teve caráter introdutório e estrutural, preparando o repositório para as implementações que serão desenvolvidas nas próximas semanas.
+
+---
+
+- Disciplina: Desenvolvimento de Aplicativos 2  
+- Curso: Tecnologia em Sistemas para Internet 
+- Aluno: Adriano de Paula 
+
+
