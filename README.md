@@ -1,131 +1,114 @@
-# FirebaseApp – Semana 6
+# FirebaseApp – Semana 8
 
-Atividade referente à **Semana 6** da disciplina **Desenvolvimento de Aplicativos 2**.
+Atividade referente à **Semana 8** da disciplina **Desenvolvimento de Aplicativos 2**.
 
-Nesta etapa foi implementado um sistema de **notificações locais**, integrando o aplicativo com eventos internos para exibição de alertas ao usuário.
+Nesta etapa foram estudados conceitos de **mapas e geração de rotas**, integrando serviços externos para cálculo de trajetos entre dois pontos.
 
 ---
 
 ## 🎯 Objetivo da Semana
 
-- Implementar notificações no aplicativo
-- Configurar permissões no Android
-- Criar canal de notificações
-- Integrar notificações com ações do usuário (criação de notas)
+- Trabalhar com mapas no Flutter
+- Gerar rotas entre origem e destino
+- Consumir serviços externos de direções
+- Exibir trajetos no mapa
+- Estruturar dados de rotas para armazenamento
 
 ---
 
-## 🔔 Conceito Aplicado
+## 🗺️ Conceito de Rotas
 
-Foi utilizado o conceito de **notificações locais**, onde o próprio aplicativo dispara notificações no dispositivo, sem necessidade de um servidor externo.
+Em aplicações móveis, gerar rotas consiste em:
 
-Esse comportamento é comum em aplicações que precisam notificar eventos como:
-
-- Criação de dados
-- Lembretes
-- Atualizações internas
-
----
-
-## ⚙️ Configurações Realizadas
-
-### 📱 Permissão no Android
-
-No arquivo `AndroidManifest.xml` foi adicionada a permissão:
-
-```xml id="1t4j6k"
-<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-```
+1. Definir um ponto de origem e um destino  
+2. Consultar um serviço de direções  
+3. Receber dados como:
+   - Distância
+   - Duração
+   - Caminho (polyline)  
+4. Exibir o trajeto no mapa  
 
 ---
 
-## ⚙️ Configuração do build.gradle
+## ⚙️ Funcionamento Geral
 
-Foi habilitado suporte necessário para notificações:
+O fluxo da aplicação segue os passos:
 
-```dart
-isCoreLibraryDesugaringEnabled = true
-```
-E adicionada dependência:
-
-```dart
-coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
-```
-
----
-
-## 📄 Arquivo criado
-
-`notifications.dart`
-
-Responsável por:
-
-- Inicializar o sistema de notificações
-- Criar canal de notificações
-- Exibir notificações no dispositivo
+1. Usuário seleciona pontos no mapa  
+2. Aplicação envia requisição para um serviço de rotas  
+3. O serviço retorna:
+   - Geometria da rota  
+   - Distância  
+   - Tempo estimado  
+4. A rota é desenhada no mapa utilizando uma **polyline**  
+5. Os dados podem ser armazenados no Firestore  
 
 ---
 
-## 🔔 Canal de Notificação
+## 🌐 Serviço de Rotas
 
-Foi criado um canal:
+Foi utilizado um serviço externo (exemplo: OSRM) para:
 
-- Nome: **Notificações Importantes**
-- Importância: alta
-
-Isso garante que as notificações apareçam com destaque no dispositivo.
+- Calcular o trajeto entre dois pontos
+- Retornar os dados necessários para exibição
 
 ---
 
-## 🔄 Integração com o App
+## 🧭 Exibição no Mapa
 
-A notificação foi integrada ao fluxo de criação de notas (notes.dart):
+Para visualização:
 
-```dart
-Notifications.show(
-  id: note.id.hashCode,
-  title: 'Nota criada',
-  body: text,
-);
-```
-
-Com isso, sempre que uma nova nota é criada:
-
-- O dado é salvo no Firestore
-- Uma notificação é exibida ao usuário
-
----
-  
-## 🚀 Inicialização no main.dart
-
-O sistema de notificações foi inicializado no início da aplicação:
-
-```dart
-await Notifications.init();
-await Permission.notification.request();
-```
+- Mapa interativo no Flutter
+- Desenho da rota com **polyline**
+- Atualização dinâmica da interface
 
 ---
 
-## 📚 Tecnologias Utilizadas
+## 🗄️ Estrutura de Dados (Firestore)
 
-- Flutter Local Notifications
-- Firebase (integração com dados)
-- Permission Handler
+Os dados de rota podem ser armazenados com:
+
+- Origem (GeoPoint)
+- Destino (GeoPoint)
+- Distância (metros)
+- Duração (segundos)
+- Polyline (trajeto)
+- Endereço (geocodificação reversa)
+
+---
+
+## 📚 Tecnologias Envolvidas
+
+- Flutter
+- Mapas (ex: flutter_map)
+- Serviços de rotas (ex: OSRM)
+- Firebase Firestore
 
 ---
 
 ## 🧠 Conceitos Aplicados
 
-- Notificações locais
-- Permissões de sistema
-- Integração entre eventos e interface
-- Experiência do usuário (UX)
+- Geolocalização
+- Consumo de API externa
+- Manipulação de coordenadas geográficas
+- Renderização de mapas
+- Persistência de dados geoespaciais
 
 ---
 
 ## 📌 Considerações
 
-Nesta semana foi implementado um recurso importante para melhorar a experiência do usuário: notificações em tempo real dentro do próprio aplicativo.
+Nesta semana foi introduzido o conceito de **aplicações baseadas em localização**, permitindo que o aplicativo calcule e exiba rotas em tempo real.
 
-A aplicação passou a reagir a eventos internos, tornando-se mais interativa e próxima de aplicações utilizadas no mercado.
+Esse tipo de funcionalidade é amplamente utilizado em aplicativos como transporte, entrega e navegação.
+
+---
+
+## 🌿 Controle de Versão
+
+```bash id="1j5b2o"
+git branch semana8
+git checkout semana8
+git add .
+git commit -m "Semana 8"
+git push origin semana8
