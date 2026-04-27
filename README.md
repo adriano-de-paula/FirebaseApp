@@ -1,131 +1,112 @@
-# FirebaseApp – Semana 6
+# FirebaseApp – Semana 9
 
-Atividade referente à **Semana 6** da disciplina **Desenvolvimento de Aplicativos 2**.
+Atividade referente à **Semana 9** da disciplina **Desenvolvimento de Aplicativos 2**.
 
-Nesta etapa foi implementado um sistema de **notificações locais**, integrando o aplicativo com eventos internos para exibição de alertas ao usuário.
+Nesta etapa foi implementado o uso do **sensor de GPS**, permitindo obter a localização do usuário em tempo real dentro do aplicativo.
 
 ---
 
 ## 🎯 Objetivo da Semana
 
-- Implementar notificações no aplicativo
-- Configurar permissões no Android
-- Criar canal de notificações
-- Integrar notificações com ações do usuário (criação de notas)
+- Trabalhar com geolocalização no Flutter
+- Obter a posição atual do usuário
+- Configurar permissões de localização
+- Utilizar atualização contínua de localização (stream)
 
 ---
 
-## 🔔 Conceito Aplicado
+## 📍 Conceito de GPS
 
-Foi utilizado o conceito de **notificações locais**, onde o próprio aplicativo dispara notificações no dispositivo, sem necessidade de um servidor externo.
+O GPS (Global Positioning System) permite determinar a posição do dispositivo por meio de coordenadas geográficas:
 
-Esse comportamento é comum em aplicações que precisam notificar eventos como:
+- Latitude
+- Longitude
 
-- Criação de dados
-- Lembretes
-- Atualizações internas
+Esse recurso é essencial para aplicações como:
 
----
-
-## ⚙️ Configurações Realizadas
-
-### 📱 Permissão no Android
-
-No arquivo `AndroidManifest.xml` foi adicionada a permissão:
-
-```xml id="1t4j6k"
-<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-```
+- Mapas
+- Entregas
+- Transporte
+- Rastreamento
 
 ---
 
-## ⚙️ Configuração do build.gradle
+## ⚙️ Implementação no Flutter
 
-Foi habilitado suporte necessário para notificações:
+Para acessar o GPS foi utilizado um plugin de geolocalização (ex: `geolocator`).
 
-```dart
-isCoreLibraryDesugaringEnabled = true
-```
-E adicionada dependência:
+Fluxo de funcionamento:
 
-```dart
-coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
-```
+1. Verificar se o serviço de localização está ativo  
+2. Solicitar permissões ao usuário  
+3. Obter a posição atual  
+4. (Opcional) Escutar mudanças de localização em tempo real  
 
 ---
 
-## 📄 Arquivo criado
+## 🔐 Permissões
 
-`notifications.dart`
+O aplicativo solicita permissão de acesso à localização do usuário.
 
-Responsável por:
+Esse passo é essencial para garantir:
 
-- Inicializar o sistema de notificações
-- Criar canal de notificações
-- Exibir notificações no dispositivo
-
----
-
-## 🔔 Canal de Notificação
-
-Foi criado um canal:
-
-- Nome: **Notificações Importantes**
-- Importância: alta
-
-Isso garante que as notificações apareçam com destaque no dispositivo.
+- Privacidade
+- Segurança
+- Funcionamento correto do GPS  
 
 ---
 
-## 🔄 Integração com o App
+## 🔄 Atualização em Tempo Real
 
-A notificação foi integrada ao fluxo de criação de notas (notes.dart):
+Para acompanhar mudanças de localização, pode-se utilizar um **Stream**, permitindo:
 
-```dart
-Notifications.show(
-  id: note.id.hashCode,
-  title: 'Nota criada',
-  body: text,
-);
-```
-
-Com isso, sempre que uma nova nota é criada:
-
-- O dado é salvo no Firestore
-- Uma notificação é exibida ao usuário
+- Atualização contínua da posição
+- Uso em aplicações de rastreamento
+- Maior interatividade
 
 ---
-  
-## 🚀 Inicialização no main.dart
 
-O sistema de notificações foi inicializado no início da aplicação:
+## ⚡ Precisão da Localização
 
-```dart
-await Notifications.init();
-await Permission.notification.request();
-```
+Foi abordado o uso de diferentes níveis de precisão:
+
+- Alta precisão → maior consumo de bateria  
+- Baixa precisão → menor consumo  
+
+A escolha depende do tipo de aplicação.
 
 ---
 
 ## 📚 Tecnologias Utilizadas
 
-- Flutter Local Notifications
-- Firebase (integração com dados)
-- Permission Handler
+- Flutter
+- Plugin de geolocalização (ex: Geolocator)
 
 ---
 
 ## 🧠 Conceitos Aplicados
 
-- Notificações locais
+- Geolocalização
+- Sensores de dispositivo
 - Permissões de sistema
-- Integração entre eventos e interface
-- Experiência do usuário (UX)
+- Streams (dados em tempo real)
+- Consumo de recursos (bateria vs precisão)
 
 ---
 
 ## 📌 Considerações
 
-Nesta semana foi implementado um recurso importante para melhorar a experiência do usuário: notificações em tempo real dentro do próprio aplicativo.
+Nesta semana foi introduzido o uso do **sensor de GPS**, permitindo que o aplicativo interaja com a localização do usuário.
 
-A aplicação passou a reagir a eventos internos, tornando-se mais interativa e próxima de aplicações utilizadas no mercado.
+Esse recurso amplia significativamente as possibilidades do aplicativo, podendo ser integrado com mapas, rotas e serviços baseados em localização nas próximas etapas.
+
+---
+
+## 🌿 Controle de Versão
+
+```bash id="kzzp7p"
+git branch semana9
+git checkout semana9
+git add .
+git commit -m "Semana 9"
+git push origin semana9
