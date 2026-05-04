@@ -1,131 +1,170 @@
-# FirebaseApp – Semana 6
+# FirebaseApp – Semana 10
 
-Atividade referente à **Semana 6** da disciplina **Desenvolvimento de Aplicativos 2**.
+Atividade referente à **Semana 10** da disciplina **Desenvolvimento de Aplicativos 2**.
 
-Nesta etapa foi implementado um sistema de **notificações locais**, integrando o aplicativo com eventos internos para exibição de alertas ao usuário.
+Nesta etapa foi realizada a implementação de **datas e horários nas anotações**, além da integração com o recurso de mapa já desenvolvido anteriormente.
 
 ---
 
 ## 🎯 Objetivo da Semana
 
-- Implementar notificações no aplicativo
-- Configurar permissões no Android
-- Criar canal de notificações
-- Integrar notificações com ações do usuário (criação de notas)
+- Trabalhar com seleção de datas e horários no Flutter
+- Integrar DatePicker e TimePicker
+- Armazenar informações temporais no Firestore
+- Melhorar a estrutura das anotações
+- Integrar funcionalidades de mapa às notas
 
 ---
 
-## 🔔 Conceito Aplicado
+## 📅 Datas e Horários no Flutter
 
-Foi utilizado o conceito de **notificações locais**, onde o próprio aplicativo dispara notificações no dispositivo, sem necessidade de um servidor externo.
+Foram utilizados os componentes:
 
-Esse comportamento é comum em aplicações que precisam notificar eventos como:
+- `showDatePicker` → seleção de data  
+- `showTimePicker` → seleção de horário  
 
-- Criação de dados
-- Lembretes
-- Atualizações internas
+Esses componentes permitem:
 
----
-
-## ⚙️ Configurações Realizadas
-
-### 📱 Permissão no Android
-
-No arquivo `AndroidManifest.xml` foi adicionada a permissão:
-
-```xml id="1t4j6k"
-<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-```
+- Interface visual amigável  
+- Retorno assíncrono dos valores selecionados  
+- Integração com o estado da aplicação  
 
 ---
 
-## ⚙️ Configuração do build.gradle
+## ⚙️ Alterações no Banco de Dados
 
-Foi habilitado suporte necessário para notificações:
+Os documentos de notas passaram a ter novos campos:
+
+```json
+{
+  "description": "Texto da nota",
+  "createdAt": "timestamp",
+  "updatedAt": "timestamp",
+  "date": "timestamp",
+  "timeMinutes": "int"
+}
+````
+
+* `date` → armazena a data selecionada
+* `timeMinutes` → armazena o horário em minutos
+
+---
+
+## 📱 Funcionalidades Implementadas
+
+### 🔹 Seleção de Data
+
+* Abertura de calendário com `DatePicker`
+* Escolha de dia, mês e ano
+* Armazenamento no Firestore
 
 ```dart
-isCoreLibraryDesugaringEnabled = true
+showDatePicker(...)
 ```
-E adicionada dependência:
+
+---
+
+### 🔹 Seleção de Horário
+
+* Seleção de hora e minuto com `TimePicker`
+* Conversão para minutos totais
+* Armazenamento no banco
 
 ```dart
-coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+showTimePicker(...)
 ```
 
 ---
 
-## 📄 Arquivo criado
+### 🔹 Formatação de Dados
 
-`notifications.dart`
+Foram criadas funções para exibir os dados:
 
-Responsável por:
-
-- Inicializar o sistema de notificações
-- Criar canal de notificações
-- Exibir notificações no dispositivo
+* Data → formato `MM/AAAA`
+* Hora → formato `HH:mm`
 
 ---
 
-## 🔔 Canal de Notificação
+### 🔹 Integração com Mapa
 
-Foi criado um canal:
+Cada nota agora pode:
 
-- Nome: **Notificações Importantes**
-- Importância: alta
-
-Isso garante que as notificações apareçam com destaque no dispositivo.
-
----
-
-## 🔄 Integração com o App
-
-A notificação foi integrada ao fluxo de criação de notas (notes.dart):
+* Abrir o mapa
+* Exibir localização associada
+* Editar posição diretamente
 
 ```dart
-Notifications.show(
-  id: note.id.hashCode,
-  title: 'Nota criada',
-  body: text,
-);
+_openMapViewer(...)
 ```
-
-Com isso, sempre que uma nova nota é criada:
-
-- O dado é salvo no Firestore
-- Uma notificação é exibida ao usuário
 
 ---
-  
-## 🚀 Inicialização no main.dart
 
-O sistema de notificações foi inicializado no início da aplicação:
+### 🔹 Interface Melhorada
 
-```dart
-await Notifications.init();
-await Permission.notification.request();
-```
+Foram adicionados ícones nas notas:
+
+* 📍 Mapa
+* 📅 Data
+* ⏰ Horário
+* 🗑 Remover
+
+Cada item possui ação específica diretamente na lista.
+
+---
+
+## 🔄 Atualizações em Tempo Real
+
+A listagem continua utilizando:
+
+* `StreamBuilder`
+
+Garantindo:
+
+* Atualização automática dos dados
+* Sincronização com o Firestore
 
 ---
 
 ## 📚 Tecnologias Utilizadas
 
-- Flutter Local Notifications
-- Firebase (integração com dados)
-- Permission Handler
+* Flutter
+* Firebase Firestore
+* DatePicker
+* TimePicker
+* Integração com mapas
 
 ---
 
 ## 🧠 Conceitos Aplicados
 
-- Notificações locais
-- Permissões de sistema
-- Integração entre eventos e interface
-- Experiência do usuário (UX)
+* Manipulação de datas e horários
+* Interfaces interativas
+* Persistência de dados temporais
+* Integração entre funcionalidades
+* Programação assíncrona
 
 ---
 
 ## 📌 Considerações
 
-Nesta semana foi implementado um recurso importante para melhorar a experiência do usuário: notificações em tempo real dentro do próprio aplicativo.
+Nesta semana as anotações evoluíram para um nível mais completo, permitindo registrar não apenas texto, mas também **informações de tempo e localização**.
 
-A aplicação passou a reagir a eventos internos, tornando-se mais interativa e próxima de aplicações utilizadas no mercado.
+Isso aproxima o aplicativo de soluções reais como:
+
+* Agendas
+* Lembretes
+* Aplicativos de tarefas
+
+---
+
+## 🌿 Controle de Versão
+
+```bash
+git branch semana10
+git checkout semana10
+git add .
+git commit -m "Semana 10"
+git push origin semana10
+```
+
+
